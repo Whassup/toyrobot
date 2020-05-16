@@ -6,5 +6,9 @@ export enum OrientationEnum {
 }
 
 export enum CommandEnum {
-    PLACE = "PLACE"
+    PLACE = "PLACE",
+    MOVE = "MOVE",
+    LEFT = "LEFT",
+    RIGHT = "RIGHT",
+    REPORT = "REPORT"
 }

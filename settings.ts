@@ -1,0 +1,1 @@
+export const TableTopDimensions = [5, 5];
