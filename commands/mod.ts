@@ -10,6 +10,7 @@ export function commandHandler(
   args: string[] = [],
   robotState?: RobotState,
 ): RobotState {
+  console.log(""); // Empty console log to prompt a change for testing
   if (robotState == undefined) {
     return place(...args)(
       { position: [0, 0], orientation: OrientationEnum.NORTH },
@@ -33,6 +34,9 @@ export function commandHandler(
       orientation = rotate(robotState.orientation, false);
       return { ...robotState, orientation };
     default:
+      console.log("defaulted")
       return robotState;
   }
+
+  console.log("the end");
 }

@@ -13,7 +13,6 @@ async function readCommand(state?: RobotState) {
 
 export function start() {
     console.log("Please input your command:");
-    
     readCommand();
 }
 
