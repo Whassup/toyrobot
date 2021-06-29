@@ -3,11 +3,15 @@ import {
   commandEncoder as appCommandEncoder,
   CommandEncoder,
 } from "./commands/commandEncoder";
+import { moveCommandInterpreter } from "./commands/move";
 import { placeCommandInterpreter } from "./commands/place";
 import { CommandInterpreter } from "./commands/types";
 import { isAppError } from "./types";
 
-const commandInterpreters: CommandInterpreter[] = [placeCommandInterpreter];
+const commandInterpreters: CommandInterpreter[] = [
+  placeCommandInterpreter,
+  moveCommandInterpreter,
+];
 
 const app = (
   input: string,
