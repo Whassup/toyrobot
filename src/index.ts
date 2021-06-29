@@ -23,7 +23,14 @@ const app = (
     console.error(commandOrAppError.message);
     return appState;
   }
-  return commandOrAppError(appState);
+  const appStateOrError = commandOrAppError(appState);
+
+  if (isAppError(appStateOrError)) {
+    console.error(appStateOrError.message);
+    return appState;
+  }
+
+  return appStateOrError;
 };
 
 const rl = readline.createInterface({

@@ -8,8 +8,7 @@
     - REPORT
 - [X] Ignore invalid commands
   - [X] Ignore commands that do not match required inputs
-- [X] (Place) Update state for robot position to provided place position
-  - [ ] Create state for robot face
+- [X] (Place) Update state for robot position to provided place position and face
 - [ ] (Move) Update state for robot to move single position
 - [ ] (Left / Right) Update state for robot to turn face
 - [ ] (Report) Display robot state using a report service
