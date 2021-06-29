@@ -5,6 +5,7 @@ module.exports = {
     "airbnb",
     "plugin:prettier/recommended",
     "prettier",
+    "plugin:import/typescript",
   ],
   parser: "@typescript-eslint/parser",
   plugins: ["@typescript-eslint", "prettier"],
