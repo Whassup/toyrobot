@@ -3,13 +3,21 @@ import {
   commandEncoder as appCommandEncoder,
   CommandEncoder,
 } from "./commandEncoder";
+import { placeCommandInterpreter } from "./placeCommand";
+import { CommandInterpreter, isAppError } from "./types";
+
+const commandInterpreters: CommandInterpreter[] = [placeCommandInterpreter];
 
 const app = (
   input: string,
   { commandEncoder }: { commandEncoder: CommandEncoder }
 ) => {
-  const command = commandEncoder(input, []);
-  command.run();
+  const commandOrAppError = commandEncoder(input, commandInterpreters);
+  if (isAppError(commandOrAppError)) {
+    console.error(commandOrAppError.message);
+  } else {
+    commandOrAppError();
+  }
 };
 
 const rl = readline.createInterface({

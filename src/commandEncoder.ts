@@ -1,27 +1,21 @@
-interface canRunCommand {
-  run: () => void;
-}
-
-interface canEncodeFromString {
-  encodeFromString: (input: string) => boolean;
-}
+import { AppError, AppErrorOr, Command, CommandInterpreter } from "./types";
 
 export interface CommandEncoder {
   (
     input: string,
-    commands: (canEncodeFromString & canRunCommand)[]
-  ): canRunCommand;
+    commandInterpreters: CommandInterpreter[]
+  ): AppErrorOr<Command>;
 }
 
-const InvalidCommand: canRunCommand = {
-  run: () => {
-    console.error("Invalid command");
-  },
-};
+const createInvalidCommand = (input: string): AppError => ({
+  typeName: "AppError",
+  message: `Invalid command for ${input}`,
+});
 
-export const commandEncoder: CommandEncoder = (input, commands) => {
+export const commandEncoder: CommandEncoder = (input, commandInterpreters) => {
   return (
-    commands.find((command) => command.encodeFromString(input)) ||
-    InvalidCommand
+    commandInterpreters
+      .find(({ validate }) => validate(input))
+      ?.encodeFromString(input) || createInvalidCommand(input)
   );
 };
