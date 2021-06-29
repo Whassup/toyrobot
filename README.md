@@ -1,3 +1,24 @@
+## TODOs;
+- [ ] Read in user input
+- [ ] Intepret command into input of;
+    - PLACE X,Y,F
+    - MOVE
+    - LEFT
+    - RIGHT
+    - REPORT
+- [ ] Ignore invalid commands
+  - [ ] Ignore commands that do not match required inputs
+- [ ] (Place) Update state for robot position to provided place position
+  - [ ] Create state for robot face
+- [ ] (Move) Update state for robot to move single position
+- [ ] (Left / Right) Update state for robot to turn face
+- [ ] (Report) Display robot state using a report service
+- [ ] Ignore commands that move robot off board
+  - [ ] Create state for robot position
+  - [ ] Create config for board size
+
+-------
+
 Toy Robot Simulator
 ===================
 
