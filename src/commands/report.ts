@@ -1,9 +1,10 @@
-import { CommandInterpreter } from "./types";
+import { Command, CommandInterpreter } from "./types";
 
 const commandMatcher = /REPORT/;
 
-const report = () => {
+const report: Command = (state) => {
   console.log("report command");
+  return state;
 };
 
 export const reportCommandInterpreter: CommandInterpreter = {

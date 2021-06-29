@@ -11,10 +11,11 @@ module.exports = {
   plugins: ["@typescript-eslint", "prettier"],
   rules: {
     "prettier/prettier": "error",
-    "@typescript-eslint/indent": ["error", 2],
     "@typescript-eslint/no-unused-vars": "error",
     "@typescript-eslint/no-explicit-any": "error",
     "import/prefer-default-export": "off",
     "import/extensions": "off",
+    "no-shadow": "off",
+    "@typescript-eslint/no-shadow": ["error"],
   },
 };

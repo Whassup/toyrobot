@@ -10,3 +10,27 @@ export const isAppError = <T>(value: AppErrorOr<T>): value is AppError =>
 export interface EncodeFromString<T> {
   (input: string): AppErrorOr<T>;
 }
+
+export interface Coordinate {
+  x: number;
+  y: number;
+}
+
+export enum Orientation {
+  NORTH = "NORTH",
+  EAST = "EAST",
+  SOUTH = "SOUTH",
+  WEST = "WEST",
+}
+
+export interface hasOrientation {
+  orientation: Orientation;
+}
+
+export interface hasCoordinate {
+  coordinate: Coordinate;
+}
+
+export interface AppState {
+  robot?: hasOrientation & hasCoordinate;
+}

@@ -1,11 +1,11 @@
-import { EncodeFromString } from "../types";
+import { AppState, EncodeFromString } from "../types";
 
 export interface CommandValidator {
   (input: string): boolean;
 }
 
 export interface Command {
-  (): void;
+  (state: AppState): AppState;
 }
 
 export interface CommandInterpreter {

@@ -1,9 +1,10 @@
-import { CommandInterpreter } from "./types";
+import { Command, CommandInterpreter } from "./types";
 
 const commandMatcher = /LEFT/;
 
-const left = () => {
+const left: Command = (state) => {
   console.log("left command");
+  return state;
 };
 
 export const leftCommandInterpreter: CommandInterpreter = {

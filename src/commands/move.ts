@@ -1,9 +1,10 @@
-import { CommandInterpreter } from "./types";
+import { Command, CommandInterpreter } from "./types";
 
 const commandMatcher = /MOVE/;
 
-const move = () => {
+const move: Command = (state) => {
   console.log("move command");
+  return state;
 };
 
 export const moveCommandInterpreter: CommandInterpreter = {

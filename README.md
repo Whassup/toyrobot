@@ -1,14 +1,14 @@
 ## TODOs;
 - [x] Read in user input
-- [ ] Intepret command into input of;
+- [x] Intepret command into input of;
     - PLACE X,Y,F
     - MOVE
     - LEFT
     - RIGHT
     - REPORT
-- [ ] Ignore invalid commands
-  - [ ] Ignore commands that do not match required inputs
-- [ ] (Place) Update state for robot position to provided place position
+- [X] Ignore invalid commands
+  - [X] Ignore commands that do not match required inputs
+- [X] (Place) Update state for robot position to provided place position
   - [ ] Create state for robot face
 - [ ] (Move) Update state for robot to move single position
 - [ ] (Left / Right) Update state for robot to turn face

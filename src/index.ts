@@ -6,7 +6,7 @@ import {
 import { moveCommandInterpreter } from "./commands/move";
 import { placeCommandInterpreter } from "./commands/place";
 import { CommandInterpreter } from "./commands/types";
-import { isAppError } from "./types";
+import { AppState, isAppError } from "./types";
 
 const commandInterpreters: CommandInterpreter[] = [
   placeCommandInterpreter,
@@ -15,14 +15,15 @@ const commandInterpreters: CommandInterpreter[] = [
 
 const app = (
   input: string,
-  { commandEncoder }: { commandEncoder: CommandEncoder }
+  { commandEncoder }: { commandEncoder: CommandEncoder },
+  appState: AppState
 ) => {
   const commandOrAppError = commandEncoder(input, commandInterpreters);
   if (isAppError(commandOrAppError)) {
     console.error(commandOrAppError.message);
-  } else {
-    commandOrAppError();
+    return appState;
   }
+  return commandOrAppError(appState);
 };
 
 const rl = readline.createInterface({
@@ -30,8 +31,9 @@ const rl = readline.createInterface({
   output: process.stdout,
 });
 
-rl.on("line", (input) => {
-  console.log(`Received: ${input}`);
+let appState: AppState = {};
 
-  app(input, { commandEncoder: appCommandEncoder });
+rl.on("line", (input) => {
+  appState = app(input, { commandEncoder: appCommandEncoder }, appState);
+  console.log(appState);
 });
