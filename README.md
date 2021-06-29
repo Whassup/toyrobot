@@ -1,5 +1,5 @@
 ## TODOs;
-- [ ] Read in user input
+- [x] Read in user input
 - [ ] Intepret command into input of;
     - PLACE X,Y,F
     - MOVE
