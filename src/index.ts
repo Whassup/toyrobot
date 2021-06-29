@@ -2,9 +2,10 @@ import readline from "readline";
 import {
   commandEncoder as appCommandEncoder,
   CommandEncoder,
-} from "./commandEncoder";
-import { placeCommandInterpreter } from "./placeCommand";
-import { CommandInterpreter, isAppError } from "./types";
+} from "./commands/commandEncoder";
+import { placeCommandInterpreter } from "./commands/place";
+import { CommandInterpreter } from "./commands/types";
+import { isAppError } from "./types";
 
 const commandInterpreters: CommandInterpreter[] = [placeCommandInterpreter];
 

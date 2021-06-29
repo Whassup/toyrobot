@@ -1,4 +1,5 @@
-import { AppError, AppErrorOr, Command, CommandInterpreter } from "./types";
+import { AppError, AppErrorOr } from "../types";
+import { Command, CommandInterpreter } from "./types";
 
 export interface CommandEncoder {
   (
