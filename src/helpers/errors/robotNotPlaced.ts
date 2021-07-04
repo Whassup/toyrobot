@@ -1,4 +1,4 @@
-import { AppError } from "../types";
+import { AppError } from "../../types";
 
 export const RobotNotPlaced: AppError = {
   typeName: "AppError",

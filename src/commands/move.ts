@@ -1,4 +1,4 @@
-import { RobotNotPlaced } from "../errors/robotNotPlaced";
+import { RobotNotPlaced } from "../helpers/errors/robotNotPlaced";
 import { Orientation } from "../types";
 import { Command, CommandInterpreter } from "./types";
 

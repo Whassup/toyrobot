@@ -3,7 +3,6 @@ import { Command, CommandInterpreter } from "./types";
 const commandMatcher = /REPORT/;
 
 const report: Command = (state) => {
-  console.log("report command");
   return state;
 };
 

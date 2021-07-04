@@ -6,14 +6,13 @@
     - LEFT
     - RIGHT
     - REPORT
-- [X] Ignore invalid commands
-  - [X] Ignore commands that do not match required inputs
-- [X] (Place) Update state for robot position to provided place position and face
-- [ ] (Move) Update state for robot to move single position
-- [ ] (Left / Right) Update state for robot to turn face
+- [x] Ignore invalid commands
+  - [x] Ignore commands that do not match required inputs
+- [x] (Place) Update state for robot position to provided place position and face
+- [x] (Move) Update state for robot to move single position
+- [X] (Left / Right) Update state for robot to turn face
 - [ ] (Report) Display robot state using a report service
 - [ ] Ignore commands that move robot off board
-  - [ ] Create state for robot position
   - [ ] Create config for board size
 
 -------

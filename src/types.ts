@@ -1,3 +1,5 @@
+import { Orientation } from "./constants";
+
 export type Either<E, T> = E | T;
 export interface AppError {
   typeName: "AppError";
@@ -14,13 +16,6 @@ export interface EncodeFromString<T> {
 export interface Coordinate {
   x: number;
   y: number;
-}
-
-export enum Orientation {
-  NORTH = "NORTH",
-  EAST = "EAST",
-  SOUTH = "SOUTH",
-  WEST = "WEST",
 }
 
 export interface hasOrientation {
