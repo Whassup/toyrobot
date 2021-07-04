@@ -9,6 +9,8 @@ import { placeCommandInterpreter } from "./commands/place";
 import { reportCommandInterpreter } from "./commands/report";
 import { rightCommandInterpreter } from "./commands/right";
 import { CommandInterpreter } from "./commands/types";
+import { coordinatesIsOutOfBounds } from "./helpers/errors/coordinatesIsOutOfBounds";
+import { isObjectOnBoard } from "./helpers/isObjectOnBoard";
 import { AppAction, AppState, isAppError } from "./types";
 
 const commandInterpreters: CommandInterpreter[] = [
@@ -53,6 +55,14 @@ const app = (
 
   if (isAppError(appStateOrError)) {
     console.error(appStateOrError.message);
+    return appState;
+  }
+
+  if (
+    appStateOrError.robot &&
+    !isObjectOnBoard(appStateOrError.robot, { x: 4, y: 4 })
+  ) {
+    console.log(coordinatesIsOutOfBounds);
     return appState;
   }
 

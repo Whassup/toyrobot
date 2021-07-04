@@ -11,8 +11,8 @@
 - [x] (Place) Update state for robot position to provided place position and face
 - [x] (Move) Update state for robot to move single position
 - [X] (Left / Right) Update state for robot to turn face
-- [ ] (Report) Display robot state using a report service
-- [ ] Ignore commands that move robot off board
+- [X] (Report) Display robot state using a report service
+- [X] Ignore commands that move robot off board
   - [ ] Create config for board size
 
 -------
