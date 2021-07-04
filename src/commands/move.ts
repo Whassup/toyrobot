@@ -1,5 +1,6 @@
+import { Orientation } from "../constants";
 import { RobotNotPlaced } from "../helpers/errors/robotNotPlaced";
-import { Orientation } from "../types";
+import { AppAction } from "../types";
 import { Command, CommandInterpreter } from "./types";
 
 const commandMatcher = /MOVE/;
@@ -9,6 +10,7 @@ export const move: Command = ({ robot, ...rest }) => {
   if (robot?.orientation === Orientation.NORTH) {
     return {
       ...rest,
+      action: AppAction.NoOperation,
       robot: {
         ...robot,
         coordinate: {
@@ -22,6 +24,7 @@ export const move: Command = ({ robot, ...rest }) => {
   if (robot?.orientation === Orientation.EAST) {
     return {
       ...rest,
+      action: AppAction.NoOperation,
       robot: {
         ...robot,
         coordinate: {
@@ -35,6 +38,7 @@ export const move: Command = ({ robot, ...rest }) => {
   if (robot?.orientation === Orientation.SOUTH) {
     return {
       ...rest,
+      action: AppAction.NoOperation,
       robot: {
         ...robot,
         coordinate: {
@@ -48,6 +52,7 @@ export const move: Command = ({ robot, ...rest }) => {
   if (robot?.orientation === Orientation.WEST) {
     return {
       ...rest,
+      action: AppAction.NoOperation,
       robot: {
         ...robot,
         coordinate: {
@@ -58,7 +63,7 @@ export const move: Command = ({ robot, ...rest }) => {
     };
   }
 
-  return { robot, ...rest };
+  return { robot, ...rest, action: AppAction.NoOperation };
 };
 
 export const moveCommandInterpreter: CommandInterpreter = {

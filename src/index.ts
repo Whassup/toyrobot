@@ -3,19 +3,45 @@ import {
   commandEncoder as appCommandEncoder,
   CommandEncoder,
 } from "./commands/commandEncoder";
+import { leftCommandInterpreter } from "./commands/left";
 import { moveCommandInterpreter } from "./commands/move";
 import { placeCommandInterpreter } from "./commands/place";
+import { reportCommandInterpreter } from "./commands/report";
+import { rightCommandInterpreter } from "./commands/right";
 import { CommandInterpreter } from "./commands/types";
-import { AppState, isAppError } from "./types";
+import { AppAction, AppState, isAppError } from "./types";
 
 const commandInterpreters: CommandInterpreter[] = [
   placeCommandInterpreter,
   moveCommandInterpreter,
+  leftCommandInterpreter,
+  rightCommandInterpreter,
+  reportCommandInterpreter,
 ];
+
+type AppActions = Record<AppAction, (state: AppState) => void>;
+
+const appActions: AppActions = {
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  [AppAction.NoOperation]: () => {},
+  [AppAction.Print]: ({ robot }) => {
+    if (robot) {
+      const {
+        coordinate: { x, y },
+        orientation,
+      } = robot;
+      console.log(x, y, orientation);
+    }
+  },
+};
 
 const app = (
   input: string,
-  { commandEncoder }: { commandEncoder: CommandEncoder },
+  {
+    commandEncoder,
+    actions,
+  }: { commandEncoder: CommandEncoder; actions: AppActions },
+
   appState: AppState
 ) => {
   const commandOrAppError = commandEncoder(input, commandInterpreters);
@@ -30,6 +56,8 @@ const app = (
     return appState;
   }
 
+  actions[appStateOrError.action](appStateOrError);
+
   return appStateOrError;
 };
 
@@ -38,9 +66,15 @@ const rl = readline.createInterface({
   output: process.stdout,
 });
 
-let appState: AppState = {};
+let appState: AppState = {
+  action: AppAction.NoOperation,
+};
 
 rl.on("line", (input) => {
-  appState = app(input, { commandEncoder: appCommandEncoder }, appState);
+  appState = app(
+    input,
+    { commandEncoder: appCommandEncoder, actions: appActions },
+    appState
+  );
   console.log(appState);
 });

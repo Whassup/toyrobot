@@ -26,6 +26,12 @@ export interface hasCoordinate {
   coordinate: Coordinate;
 }
 
+export enum AppAction {
+  NoOperation = "NoOperation",
+  Print = "Print",
+}
+
 export interface AppState {
   robot?: hasOrientation & hasCoordinate;
+  action: AppAction;
 }
