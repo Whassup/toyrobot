@@ -1,4 +1,4 @@
-## TODOs;
+## Main tasks;
 - [x] Read in user input
 - [x] Intepret command into input of;
     - PLACE X,Y,F
@@ -13,7 +13,16 @@
 - [X] (Left / Right) Update state for robot to turn face
 - [X] (Report) Display robot state using a report service
 - [X] Ignore commands that move robot off board
-  - [ ] Create config for board size
+  - [x] Create config for board size
+
+## Refactors
+
+- [ ] Move app to own function
+- [ ] Add unit tests coverage
+- [ ] Create integration tests
+- [ ] Provide logger as dependency 
+- [ ] Move readline to own function
+- [ ] Move app constants to own folder
 
 -------
 
