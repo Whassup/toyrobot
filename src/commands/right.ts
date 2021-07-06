@@ -1,4 +1,4 @@
-import { Orientation } from "../constants";
+import { Orientation } from "../helpers/constants/Orientation";
 import { enumPrevious } from "../helpers/enum";
 import { RobotNotPlaced } from "../helpers/errors/robotNotPlaced";
 import { AppAction } from "../types";

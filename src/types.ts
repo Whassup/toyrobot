@@ -1,4 +1,4 @@
-import { Orientation } from "./constants";
+import { Orientation } from "./helpers/constants/Orientation";
 
 export type Either<E, T> = E | T;
 export interface AppError {
