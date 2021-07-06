@@ -39,3 +39,5 @@ export interface AppState {
   robot?: hasOrientation & hasCoordinate;
   action: AppAction;
 }
+
+export type AppActions = Record<AppAction, (state: AppState) => void>;

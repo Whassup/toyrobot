@@ -1,14 +1,13 @@
 import readline from "readline";
+import { app } from "./app";
 import { commandEncoder as appCommandEncoder } from "./commands/commandEncoder";
 import { leftCommandInterpreter } from "./commands/left";
 import { moveCommandInterpreter } from "./commands/move";
 import { placeCommandInterpreter } from "./commands/place";
 import { reportCommandInterpreter } from "./commands/report";
 import { rightCommandInterpreter } from "./commands/right";
-import { CommandEncoder, CommandInterpreter } from "./commands/types";
-import { coordinatesIsOutOfBounds } from "./helpers/errors/coordinatesIsOutOfBounds";
-import { isObjectOnBoard } from "./helpers/isObjectOnBoard";
-import { AppAction, AppConfig, AppState, isAppError } from "./types";
+import { CommandInterpreter } from "./commands/types";
+import { AppAction, AppActions, AppConfig, AppState } from "./types";
 
 const commandInterpreters: CommandInterpreter[] = [
   placeCommandInterpreter,
@@ -17,8 +16,6 @@ const commandInterpreters: CommandInterpreter[] = [
   rightCommandInterpreter,
   reportCommandInterpreter,
 ];
-
-type AppActions = Record<AppAction, (state: AppState) => void>;
 
 const appActions: AppActions = {
   // eslint-disable-next-line @typescript-eslint/no-empty-function
@@ -32,41 +29,6 @@ const appActions: AppActions = {
       console.log(x, y, orientation);
     }
   },
-};
-
-const app = (
-  input: string,
-  {
-    commandEncoder,
-    actions,
-    config: { boardSize },
-  }: { commandEncoder: CommandEncoder; actions: AppActions; config: AppConfig },
-
-  appState: AppState
-) => {
-  const commandOrAppError = commandEncoder(input, commandInterpreters);
-  if (isAppError(commandOrAppError)) {
-    console.error(commandOrAppError.message);
-    return appState;
-  }
-  const appStateOrError = commandOrAppError(appState);
-
-  if (isAppError(appStateOrError)) {
-    console.error(appStateOrError.message);
-    return appState;
-  }
-
-  if (
-    appStateOrError.robot &&
-    !isObjectOnBoard(appStateOrError.robot, boardSize)
-  ) {
-    console.log(coordinatesIsOutOfBounds.message);
-    return appState;
-  }
-
-  actions[appStateOrError.action](appStateOrError);
-
-  return appStateOrError;
 };
 
 const rl = readline.createInterface({
@@ -85,7 +47,11 @@ const config: AppConfig = {
 rl.on("line", (input) => {
   appState = app(
     input,
-    { commandEncoder: appCommandEncoder, actions: appActions, config },
+    {
+      commandEncoder: appCommandEncoder(commandInterpreters),
+      actions: appActions,
+      config,
+    },
     appState
   );
   console.log(appState);

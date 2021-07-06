@@ -14,8 +14,5 @@ export interface CommandInterpreter {
 }
 
 export interface CommandEncoder {
-  (
-    input: string,
-    commandInterpreters: CommandInterpreter[]
-  ): AppErrorOr<Command>;
+  (input: string): AppErrorOr<Command>;
 }
