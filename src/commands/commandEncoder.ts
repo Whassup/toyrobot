@@ -1,12 +1,5 @@
-import { AppError, AppErrorOr } from "../types";
-import { Command, CommandInterpreter } from "./types";
-
-export interface CommandEncoder {
-  (
-    input: string,
-    commandInterpreters: CommandInterpreter[]
-  ): AppErrorOr<Command>;
-}
+import { AppError } from "../types";
+import { CommandEncoder } from "./types";
 
 const createInvalidCommand = (input: string): AppError => ({
   typeName: "AppError",

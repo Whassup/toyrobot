@@ -1,17 +1,14 @@
 import readline from "readline";
-import {
-  commandEncoder as appCommandEncoder,
-  CommandEncoder,
-} from "./commands/commandEncoder";
+import { commandEncoder as appCommandEncoder } from "./commands/commandEncoder";
 import { leftCommandInterpreter } from "./commands/left";
 import { moveCommandInterpreter } from "./commands/move";
 import { placeCommandInterpreter } from "./commands/place";
 import { reportCommandInterpreter } from "./commands/report";
 import { rightCommandInterpreter } from "./commands/right";
-import { CommandInterpreter } from "./commands/types";
+import { CommandEncoder, CommandInterpreter } from "./commands/types";
 import { coordinatesIsOutOfBounds } from "./helpers/errors/coordinatesIsOutOfBounds";
 import { isObjectOnBoard } from "./helpers/isObjectOnBoard";
-import { AppAction, AppState, isAppError } from "./types";
+import { AppAction, AppConfig, AppState, isAppError } from "./types";
 
 const commandInterpreters: CommandInterpreter[] = [
   placeCommandInterpreter,
@@ -42,7 +39,8 @@ const app = (
   {
     commandEncoder,
     actions,
-  }: { commandEncoder: CommandEncoder; actions: AppActions },
+    config: { boardSize },
+  }: { commandEncoder: CommandEncoder; actions: AppActions; config: AppConfig },
 
   appState: AppState
 ) => {
@@ -60,7 +58,7 @@ const app = (
 
   if (
     appStateOrError.robot &&
-    !isObjectOnBoard(appStateOrError.robot, { x: 4, y: 4 })
+    !isObjectOnBoard(appStateOrError.robot, boardSize)
   ) {
     console.log(coordinatesIsOutOfBounds.message);
     return appState;
@@ -80,10 +78,14 @@ let appState: AppState = {
   action: AppAction.NoOperation,
 };
 
+const config: AppConfig = {
+  boardSize: 5,
+};
+
 rl.on("line", (input) => {
   appState = app(
     input,
-    { commandEncoder: appCommandEncoder, actions: appActions },
+    { commandEncoder: appCommandEncoder, actions: appActions, config },
     appState
   );
   console.log(appState);

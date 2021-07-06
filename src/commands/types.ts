@@ -12,3 +12,10 @@ export interface CommandInterpreter {
   validate: CommandValidator;
   encodeFromString: EncodeFromString<Command>;
 }
+
+export interface CommandEncoder {
+  (
+    input: string,
+    commandInterpreters: CommandInterpreter[]
+  ): AppErrorOr<Command>;
+}

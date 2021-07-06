@@ -31,6 +31,10 @@ export enum AppAction {
   Print = "Print",
 }
 
+export interface AppConfig {
+  boardSize: number;
+}
+
 export interface AppState {
   robot?: hasOrientation & hasCoordinate;
   action: AppAction;
