@@ -62,7 +62,7 @@ const app = (
     appStateOrError.robot &&
     !isObjectOnBoard(appStateOrError.robot, { x: 4, y: 4 })
   ) {
-    console.log(coordinatesIsOutOfBounds);
+    console.log(coordinatesIsOutOfBounds.message);
     return appState;
   }
 
