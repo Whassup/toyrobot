@@ -12,7 +12,9 @@ const commands = parseCommands([
   "RIGHT",
   "REPORT",
   "BAD ONE!!",
-  "PLACE",
+  "PLACE 1 2 WEST",
+  "PLACE 1 2 NAH",
+  "PLACE 1 2 ",
 ]);
 
 console.log(commands);

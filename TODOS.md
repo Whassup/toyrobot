@@ -4,7 +4,7 @@
 - [x] Parse commands from string
   - [x] Ignore invalid commands
   - [x] Allow valid commands PLACE, MOVE, LEFT, RIGHT, REPORT
-  - [ ] Parse arguments for PLACE command X,Y,F
+  - [x] Parse arguments for PLACE command X,Y,F
 - [ ] Run robot simulation using provided commands
   - [ ] Handle PLACE command
 - [ ] Apply board restrictions for each command

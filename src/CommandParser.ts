@@ -1,7 +1,13 @@
 import { Data, Effect, Match, Option } from "effect";
 
+type Orientation = "NORTH" | "EAST" | "SOUTH" | "WEST";
+
 type Command = Data.TaggedEnum<{
-  PLACE: {};
+  PLACE: {
+    x: number;
+    y: number;
+    orientation: Orientation;
+  };
   MOVE: {};
   LEFT: {};
   RIGHT: {};
@@ -13,7 +19,17 @@ const { PLACE, MOVE, LEFT, RIGHT, REPORT } = Data.taggedEnum<Command>();
 
 const matchCommand = Match.type<string>().pipe(
   Match.withReturnType<Command>(),
-  Match.when("PLACE", () => PLACE()),
+  Match.when(
+    (command) => /PLACE \d \d (NORTH|EAST|SOUTH|WEST)/.test(command),
+    (command) => {
+      const [_, x, y, orientation] = command.split(" ");
+      return PLACE({
+        x: Number(x),
+        y: Number(y),
+        orientation: orientation as Orientation,
+      });
+    },
+  ),
   Match.when("MOVE", () => MOVE()),
   Match.when("LEFT", () => LEFT()),
   Match.when("RIGHT", () => RIGHT()),
