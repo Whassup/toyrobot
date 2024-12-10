@@ -1,4 +1,4 @@
-import { Data, Effect } from "effect";
+import { Data, Effect, Match, Option } from "effect";
 
 type Command = Data.TaggedEnum<{
   PLACE: {};
@@ -9,8 +9,18 @@ type Command = Data.TaggedEnum<{
 }>;
 
 // Create constructors for each case in the union
-const { PLACE } = Data.taggedEnum<Command>();
+const { PLACE, MOVE, LEFT, RIGHT, REPORT } = Data.taggedEnum<Command>();
 
-export const parseCommands = (commands: string[]): Command[] => {
-  return [PLACE()];
+const matchCommand = Match.type<string>().pipe(
+  Match.withReturnType<Command>(),
+  Match.when("PLACE", () => PLACE()),
+  Match.when("MOVE", () => MOVE()),
+  Match.when("LEFT", () => LEFT()),
+  Match.when("RIGHT", () => RIGHT()),
+  Match.when("REPORT", () => REPORT()),
+  Match.option,
+);
+
+export const parseCommands = (commands: string[]): Option.Option<Command>[] => {
+  return commands.map(matchCommand);
 };

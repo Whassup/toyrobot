@@ -1,9 +1,9 @@
 - [x] Setup effect ts project and print hello world
 - [x] Add linting and formatting
 - [ ] Read lines from file
-- [ ] Parse commands from string
-  - [ ] Ignore invalid commands
-  - [ ] Allow valid commands PLACE, MOVE, LEFT, RIGHT, REPORT
+- [x] Parse commands from string
+  - [x] Ignore invalid commands
+  - [x] Allow valid commands PLACE, MOVE, LEFT, RIGHT, REPORT
   - [ ] Parse arguments for PLACE command X,Y,F
 - [ ] Run robot simulation using provided commands
   - [ ] Handle PLACE command
