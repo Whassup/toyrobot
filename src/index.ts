@@ -1,5 +1,5 @@
-import { Effect, Console } from "effect"
+import { Effect, Console } from "effect";
 
-const program = Console.log("Hello, World!")
+const program = Console.log("Hello, World!");
 
-Effect.runSync(program)
+Effect.runSync(program);
