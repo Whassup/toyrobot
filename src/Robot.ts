@@ -1,4 +1,4 @@
-import { Effect, Ref } from "effect";
+import { Effect, Match, Ref } from "effect";
 
 type Orientation = "NORTH" | "EAST" | "SOUTH" | "WEST";
 
@@ -8,9 +8,84 @@ interface RobotState {
   orientation: Orientation;
 }
 
-class Robot {
+export class Robot {
   place = (state: RobotState) => {
-    return Ref.update(this.state, () => state);
+    Ref.update(this.state, () => state);
+  };
+
+  move = () => {
+    Match.type<Orientation>().pipe(
+      Match.when("NORTH", () => {
+        Ref.update(this.state, (state) => ({ ...state, x: state.x + 1 }));
+      }),
+      Match.when("EAST", () => {
+        Ref.update(this.state, (state) => ({ ...state, y: state.y + 1 }));
+      }),
+      Match.when("SOUTH", () => {
+        Ref.update(this.state, (state) => ({ ...state, x: state.x - 1 }));
+      }),
+      Match.when("WEST", () => {
+        Ref.update(this.state, (state) => ({ ...state, y: state.y - 1 }));
+      }),
+    );
+  };
+
+  left = () => {
+    Match.type<Orientation>().pipe(
+      Match.when("NORTH", () => {
+        Ref.update(this.state, (state) => ({
+          ...state,
+          orientation: "WEST" as Orientation,
+        }));
+      }),
+      Match.when("EAST", () => {
+        Ref.update(this.state, (state) => ({
+          ...state,
+          orientation: "NORTH" as Orientation,
+        }));
+      }),
+      Match.when("SOUTH", () => {
+        Ref.update(this.state, (state) => ({
+          ...state,
+          orientation: "EAST" as Orientation,
+        }));
+      }),
+      Match.when("WEST", () => {
+        Ref.update(this.state, (state) => ({
+          ...state,
+          orientation: "SOUTH" as Orientation,
+        }));
+      }),
+    );
+  };
+
+  right = () => {
+    Match.type<Orientation>().pipe(
+      Match.when("NORTH", () => {
+        Ref.update(this.state, (state) => ({
+          ...state,
+          orientation: "EAST" as Orientation,
+        }));
+      }),
+      Match.when("EAST", () => {
+        Ref.update(this.state, (state) => ({
+          ...state,
+          orientation: "SOUTH" as Orientation,
+        }));
+      }),
+      Match.when("SOUTH", () => {
+        Ref.update(this.state, (state) => ({
+          ...state,
+          orientation: "WEST" as Orientation,
+        }));
+      }),
+      Match.when("WEST", () => {
+        Ref.update(this.state, (state) => ({
+          ...state,
+          orientation: "NORTH" as Orientation,
+        }));
+      }),
+    );
   };
 
   report: Effect.Effect<RobotState>;

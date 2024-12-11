@@ -1,6 +1,7 @@
 import { Effect, Console } from "effect";
 import { parseCommands } from "./CommandParser";
 import { makeRobot } from "./Robot";
+import { runSimulation } from "./Simulator";
 
 const program = Console.log("Hello, World!");
 
@@ -20,11 +21,4 @@ const commands = parseCommands([
 
 console.log(commands);
 
-const robot = makeRobot.pipe(
-  Effect.andThen((a) => {
-    return a.report;
-  }),
-  Effect.tap(Console.log),
-);
-
-Effect.runSync(robot);
+Effect.runSync(makeRobot.pipe(Effect.tap(runSimulation(commands))));

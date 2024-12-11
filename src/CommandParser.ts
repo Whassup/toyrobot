@@ -1,8 +1,8 @@
-import { Data, Effect, Match, Option } from "effect";
+import { Data, Match } from "effect";
 
 type Orientation = "NORTH" | "EAST" | "SOUTH" | "WEST";
 
-type Command = Data.TaggedEnum<{
+export type Command = Data.TaggedEnum<{
   PLACE: {
     x: number;
     y: number;
@@ -12,10 +12,11 @@ type Command = Data.TaggedEnum<{
   LEFT: {};
   RIGHT: {};
   REPORT: {};
+  NOOP: {};
 }>;
 
 // Create constructors for each case in the union
-const { PLACE, MOVE, LEFT, RIGHT, REPORT } = Data.taggedEnum<Command>();
+const { PLACE, MOVE, LEFT, RIGHT, REPORT, NOOP } = Data.taggedEnum<Command>();
 
 const matchCommand = Match.type<string>().pipe(
   Match.withReturnType<Command>(),
@@ -34,9 +35,9 @@ const matchCommand = Match.type<string>().pipe(
   Match.when("LEFT", () => LEFT()),
   Match.when("RIGHT", () => RIGHT()),
   Match.when("REPORT", () => REPORT()),
-  Match.option,
+  Match.orElse(() => NOOP()),
 );
 
-export const parseCommands = (commands: string[]): Option.Option<Command>[] => {
+export const parseCommands = (commands: string[]): Command[] => {
   return commands.map(matchCommand);
 };
