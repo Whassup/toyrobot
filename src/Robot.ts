@@ -10,81 +10,71 @@ interface RobotState {
 
 export class Robot {
   place = (state: RobotState) => {
-    Ref.update(this.state, () => state);
+    return Ref.update(this.state, () => {
+      return state;
+    });
   };
 
   move = () => {
-    Match.type<Orientation>().pipe(
-      Match.when("NORTH", () => {
-        Ref.update(this.state, (state) => ({ ...state, x: state.x + 1 }));
-      }),
-      Match.when("EAST", () => {
-        Ref.update(this.state, (state) => ({ ...state, y: state.y + 1 }));
-      }),
-      Match.when("SOUTH", () => {
-        Ref.update(this.state, (state) => ({ ...state, x: state.x - 1 }));
-      }),
-      Match.when("WEST", () => {
-        Ref.update(this.state, (state) => ({ ...state, y: state.y - 1 }));
-      }),
+    return Ref.update(this.state, (state) =>
+      Match.value<Orientation>(state.orientation).pipe(
+        Match.withReturnType<RobotState>(),
+        Match.when("NORTH", () => ({ ...state, y: state.y + 1 })),
+        Match.when("EAST", () => ({ ...state, x: state.x + 1 })),
+        Match.when("SOUTH", () => ({ ...state, y: state.y - 1 })),
+        Match.when("WEST", () => ({ ...state, x: state.x - 1 })),
+        Match.exhaustive,
+      ),
     );
   };
 
   left = () => {
-    Match.type<Orientation>().pipe(
-      Match.when("NORTH", () => {
-        Ref.update(this.state, (state) => ({
+    return Ref.update(this.state, (state) =>
+      Match.value<Orientation>(state.orientation).pipe(
+        Match.withReturnType<RobotState>(),
+        Match.when("NORTH", () => ({
           ...state,
           orientation: "WEST" as Orientation,
-        }));
-      }),
-      Match.when("EAST", () => {
-        Ref.update(this.state, (state) => ({
+        })),
+        Match.when("EAST", () => ({
           ...state,
           orientation: "NORTH" as Orientation,
-        }));
-      }),
-      Match.when("SOUTH", () => {
-        Ref.update(this.state, (state) => ({
+        })),
+        Match.when("SOUTH", () => ({
           ...state,
           orientation: "EAST" as Orientation,
-        }));
-      }),
-      Match.when("WEST", () => {
-        Ref.update(this.state, (state) => ({
+        })),
+        Match.when("WEST", () => ({
           ...state,
           orientation: "SOUTH" as Orientation,
-        }));
-      }),
+        })),
+        Match.exhaustive,
+      ),
     );
   };
 
   right = () => {
-    Match.type<Orientation>().pipe(
-      Match.when("NORTH", () => {
-        Ref.update(this.state, (state) => ({
+    return Ref.update(this.state, (state) =>
+      Match.value<Orientation>(state.orientation).pipe(
+        Match.withReturnType<RobotState>(),
+        Match.when("NORTH", () => ({
           ...state,
           orientation: "EAST" as Orientation,
-        }));
-      }),
-      Match.when("EAST", () => {
-        Ref.update(this.state, (state) => ({
+        })),
+        Match.when("EAST", () => ({
           ...state,
           orientation: "SOUTH" as Orientation,
-        }));
-      }),
-      Match.when("SOUTH", () => {
-        Ref.update(this.state, (state) => ({
+        })),
+        Match.when("SOUTH", () => ({
           ...state,
           orientation: "WEST" as Orientation,
-        }));
-      }),
-      Match.when("WEST", () => {
-        Ref.update(this.state, (state) => ({
+        })),
+        Match.when("WEST", () => ({
           ...state,
           orientation: "NORTH" as Orientation,
-        }));
-      }),
+        })),
+        Match.exhaustive,
+      ),
     );
   };
 

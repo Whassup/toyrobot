@@ -24,9 +24,10 @@ const isPlace = $is("PLACE");
 const matchCommand = Match.type<string>().pipe(
   Match.withReturnType<Command>(),
   Match.when(
-    (command) => /PLACE \d \d (NORTH|EAST|SOUTH|WEST)/.test(command),
+    (command) => /PLACE \d,\d,(NORTH|EAST|SOUTH|WEST)/.test(command),
     (command) => {
-      const [_, x, y, orientation] = command.split(" ");
+      const [_, args] = command.split(" ");
+      const [x, y, orientation] = args.split(",");
       return PLACE({
         x: Number(x),
         y: Number(y),

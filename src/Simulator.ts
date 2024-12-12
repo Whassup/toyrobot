@@ -7,16 +7,16 @@ const matchCommand = (robot: Robot) =>
     Match.withReturnType<void>(),
     Match.tags({
       PLACE: ({ x, y, orientation }) => {
-        robot.place({ x, y, orientation });
+        Effect.runPromise(robot.place({ x, y, orientation }));
       },
       MOVE: () => {
-        robot.move();
+        Effect.runPromise(robot.move());
       },
       LEFT: () => {
-        robot.left();
+        Effect.runPromise(robot.left());
       },
       RIGHT: () => {
-        robot.right();
+        Effect.runPromise(robot.right());
       },
       REPORT: () => {
         console.log("REPORT");
@@ -32,6 +32,7 @@ const matchCommand = (robot: Robot) =>
 
 export const runSimulation =
   (commands: Command[]) =>
-  (robot: Robot): void => {
+  (robot: Robot): Robot => {
     commands.forEach(matchCommand(robot));
+    return robot;
   };
