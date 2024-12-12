@@ -6,9 +6,9 @@
   - [x] Allow valid commands PLACE, MOVE, LEFT, RIGHT, REPORT
   - [x] Parse arguments for PLACE command X,Y,F
 - [x] Run robot simulation using provided commands
-  - [ ] Handle PLACE command
-- [ ] Command rules
-  - [ ] Ignore commands until first valid place command
+  - [x] Handle PLACE, MOVE, RIGHT, LEFT, REPORT command
+- [x] Command rules
+  - [x] Ignore commands until first valid place command
 - [ ] Apply board restrictions for each command
 - [ ] Write unit tests
 - [ ] Write integration tests

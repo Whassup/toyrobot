@@ -16,7 +16,10 @@ export type Command = Data.TaggedEnum<{
 }>;
 
 // Create constructors for each case in the union
-const { PLACE, MOVE, LEFT, RIGHT, REPORT, NOOP } = Data.taggedEnum<Command>();
+const { PLACE, MOVE, LEFT, RIGHT, REPORT, NOOP, $is } =
+  Data.taggedEnum<Command>();
+
+const isPlace = $is("PLACE");
 
 const matchCommand = Match.type<string>().pipe(
   Match.withReturnType<Command>(),
@@ -38,6 +41,19 @@ const matchCommand = Match.type<string>().pipe(
   Match.orElse(() => NOOP()),
 );
 
+function filterCommandsFromFirstPlace(commands: Command[]): Command[] {
+  // Find the index of the first "PLACE" command
+  const firstPlaceIndex = commands.findIndex((command) => isPlace(command));
+
+  // If no "PLACE" command is found, return an empty array
+  if (firstPlaceIndex === -1) {
+    return [];
+  }
+
+  // Return the subarray starting from the index after the first "PLACE" command
+  return commands.slice(firstPlaceIndex);
+}
+
 export const parseCommands = (commands: string[]): Command[] => {
-  return commands.map(matchCommand);
+  return filterCommandsFromFirstPlace(commands.map(matchCommand));
 };
